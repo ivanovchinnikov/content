@@ -268,11 +268,11 @@ service_name=XEXDB
 ```
 
 ### Microsoft SQL Server
-The **Microsoft SQL Server** uses the FreeTDS driver to communicate with the Microsoft SQL Server using the TDS protocol.
+**Microsoft SQL Server** uses the FreeTDS driver to communicate with Microsoft SQL Server using TDS protocol.
 
-However, we've seen some issues with freetds which we couldn't resolve, and MS has an official driver supported for Linux - the **Microsoft SQL Server - MS ODBC Driver**
+However, we've seen some issues with the FreeTDS drive which we couldn't resolve, but Microsoft has an official driver for Linux - **Microsoft SQL Server - MS ODBC Driver**.
 
-In case you're experiencing any issues communicating with your Microsoft SQL Sever try using the **Microsoft SQL Server - MS ODBC Driver** instead.
+If you experience any issues communicating with your Microsoft SQL Sever try using **Microsoft SQL Server - MS ODBC Driver** instead.
 
 ## Possible Errors:
 * The bind variables lists are not is the same length
