@@ -521,16 +521,10 @@ def test_is_enrichment_exceeding_timeout(drilldown_creation_time, asset_creation
 
 @pytest.mark.parametrize('cache_object, last_run, output', [
     ({}, {}, {}),
-    ({
-         splunk.LAST_RUN_REGULAR_FETCH: {'time': 1, 'offset': 0},
-         splunk.LAST_RUN_OVER_FETCH: {'time': 2, 'offset': 50},
-         splunk.NUM_FETCHED_NOTABLES: 50
-     }, {}, {'time': 2, 'offset': 50}),
-    ({
-         splunk.LAST_RUN_REGULAR_FETCH: {'time': 1, 'offset': 0},
-         splunk.LAST_RUN_OVER_FETCH: {'time': 2, 'offset': 50},
-         splunk.NUM_FETCHED_NOTABLES: 20
-     }, {}, {'time': 1, 'offset': 0})
+    ({splunk.LAST_RUN_REGULAR_FETCH: {'time': 1, 'offset': 0}, splunk.LAST_RUN_OVER_FETCH: {'time': 2, 'offset': 50},
+      splunk.NUM_FETCHED_NOTABLES: 50}, {}, {'time': 2, 'offset': 50}),
+    ({splunk.LAST_RUN_REGULAR_FETCH: {'time': 1, 'offset': 0}, splunk.LAST_RUN_OVER_FETCH: {'time': 2, 'offset': 50},
+      splunk.NUM_FETCHED_NOTABLES: 20}, {}, {'time': 1, 'offset': 0})
 ])
 def test_handle_last_run(cache_object, last_run, output, mocker):
     mocker.patch.object(demisto, 'getLastRun', return_value=last_run)
@@ -554,14 +548,10 @@ def test_store_incident_in_ic(integration_context, incidents, output):
 
 @pytest.mark.parametrize('notable_data, raw, status, earliest, latest', [
     ({}, {}, False, "", ""),
-    ({
-         "drilldown_earliest": "${}$".format(splunk.INFO_MIN_TIME),
-         "drilldown_latest": "${}$".format(splunk.INFO_MAX_TIME),
-     }, {splunk.INFO_MIN_TIME: '1', splunk.INFO_MAX_TIME: '2'}, True, '1', '2'),
-    ({
-         "drilldown_earliest": '1',
-         "drilldown_latest": '2',
-     }, {}, True, '1', '2')
+    ({"drilldown_earliest": "${}$".format(splunk.INFO_MIN_TIME),
+      "drilldown_latest": "${}$".format(splunk.INFO_MAX_TIME), },
+     {splunk.INFO_MIN_TIME: '1', splunk.INFO_MAX_TIME: '2'}, True, '1', '2'),
+    ({"drilldown_earliest": '1', "drilldown_latest": '2', }, {}, True, '1', '2')
 ])
 def test_get_drilldown_timeframe(notable_data, raw, status, earliest, latest, mocker):
     mocker.patch.object(demisto, 'info')

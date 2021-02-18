@@ -1468,7 +1468,7 @@ def get_fields_query_part(notable_data, prefix, fields, raw_dict=None):
     """
     if not raw_dict:
         raw_dict = rawToDict(notable_data.get('_raw', ''))
-    raw_list = []
+    raw_list = []  # type: list
     for field in fields:
         raw_list += argToList(notable_data.get(field, "")) + argToList(raw_dict.get(field, ""))
     raw_list = ['{}="{}"'.format(prefix, item.strip('"')) for item in raw_list]
@@ -1877,7 +1877,7 @@ def run_enrichment_mechanism(service, enrichment_timeout, enabled_enrichments, i
         num_enrichment_events (int): The maximal number of events to return per enrichment type.
 
     """
-    incidents = []
+    incidents = []  # type: list
     cache_object = pickle.loads(integration_context.get(CACHE)) if CACHE in integration_context else {}
 
     try:
